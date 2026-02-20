@@ -154,8 +154,10 @@ h3 {
 }
 
 [data-project-card] {
-    user-select: none; 
+    user-select: none;
     -webkit-user-select: none;
     -webkit-tap-highlight-color: transparent;
-    touch-action: none; 
+    touch-action: manipulation; 
+    transform-style: preserve-3d;
+    will-change: transform;
 }

@@ -48,6 +48,7 @@ const { id, title, description, image, technologies, github, link } = Astro.prop
 
     cards.forEach(card => {
         let isScrolling = false;
+        let startX = 0;
         let startY = 0;
 
         const handleMove = (e: any) => {
@@ -66,7 +67,8 @@ const { id, title, description, image, technologies, github, link } = Astro.prop
 
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
-            const sensitivity = isTouch ? 40 : 20; 
+            
+            const sensitivity = isTouch ? 50 : 20; 
             const rotateX = (y - centerY) / sensitivity;
             const rotateY = (centerX - x) / sensitivity;
 
@@ -93,23 +95,27 @@ const { id, title, description, image, technologies, github, link } = Astro.prop
 
         card.addEventListener('touchstart', (e: any) => {
             isScrolling = false;
+            startX = e.touches[0].clientX;
             startY = e.touches[0].clientY;
         }, { passive: true });
 
         card.addEventListener('touchmove', (e: any) => {
-            if (isScrolling) return;
-
+            const currentX = e.touches[0].clientX;
             const currentY = e.touches[0].clientY;
+
+            const diffX = Math.abs(currentX - startX);
             const diffY = Math.abs(currentY - startY);
 
-            if (diffY > 30) {
+            if (diffY > diffX && diffY > 10) {
                 isScrolling = true;
                 handleLeave();
                 return;
             }
 
-            if (e.cancelable) e.preventDefault();
-            handleMove(e);
+            if (diffX > 10) {
+                if (e.cancelable) e.preventDefault();
+                handleMove(e);
+            }
         }, { passive: false });
 
         card.addEventListener('touchend', () => {
@@ -117,11 +123,8 @@ const { id, title, description, image, technologies, github, link } = Astro.prop
             handleLeave();
         });
 
-        card.addEventListener('contextmenu', (e: Event) => {
-            const mouseEvent = e as MouseEvent;
-            if ((e as PointerEvent).pointerType === 'touch' || (e as any).pointerType === 'touch') {
-                e.preventDefault();
-            }
+        card.addEventListener('contextmenu', (e: any) => {
+            if (e.pointerType === 'touch') e.preventDefault();
         });
     });
 </script>
