@@ -47,25 +47,32 @@ const { id, title, description, image, technologies, github, link } = Astro.prop
     const cards = document.querySelectorAll('[data-project-card]');
 
     cards.forEach(card => {
+        let isScrolling = false;
+        let startY = 0;
+
         const handleMove = (e: any) => {
+
+            if (isScrolling) return;
+
             const rect = card.getBoundingClientRect();
             
-            // Detectar si es touch o mouse para obtener las coordenadas
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            // Detectar coordenadas
+            const isTouch = e.type.includes('touch');
+            const clientX = isTouch ? e.touches[0].clientX : e.clientX;
+            const clientY = isTouch ? e.touches[0].clientY : e.clientY;
 
             const x = clientX - rect.left;
             const y = clientY - rect.top;
 
-            // Actualizar variables CSS para el brillo (spotlight)
             (card as HTMLElement).style.setProperty('--x', `${x}px`);
             (card as HTMLElement).style.setProperty('--y', `${y}px`);
 
-            // Cálculo de rotación
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
-            const rotateX = (y - centerY) / 20; // Un poco más sensible para móvil
-            const rotateY = (centerX - x) / 20;
+            
+            const sensitivity = isTouch ? 40 : 20; 
+            const rotateX = (y - centerY) / sensitivity;
+            const rotateY = (centerX - x) / sensitivity;
 
             gsap.to(card, {
                 rotateX: rotateX,
@@ -85,22 +92,38 @@ const { id, title, description, image, technologies, github, link } = Astro.prop
             });
         };
 
-        // Eventos de Mouse
         card.addEventListener('mousemove', handleMove);
         card.addEventListener('mouseleave', handleLeave);
 
-        // Eventos de Touch (Móvil)
-        card.addEventListener('touchstart', (e) => {
-            // Opcional: podrías no prevenir el default aquí si quieres permitir scroll
-            handleMove(e);
+        card.addEventListener('touchstart', (e: any) => {
+            isScrolling = false;
+            startY = e.touches[0].clientY;
         }, { passive: true });
 
-        card.addEventListener('touchmove', (e) => {
-            // Evita que la página haga scroll mientras mueves la card
-            if (e.cancelable) e.preventDefault(); 
+        card.addEventListener('touchmove', (e: any) => {
+            if (isScrolling) return;
+
+            const currentY = e.touches[0].clientY;
+            const diffY = Math.abs(currentY - startY);
+
+            if (diffY > 30) {
+                isScrolling = true;
+                handleLeave(); 
+                return;
+            }
+
+            if (e.cancelable) e.preventDefault();
             handleMove(e);
         }, { passive: false });
 
-        card.addEventListener('touchend', handleLeave);
+        card.addEventListener('touchend', () => {
+            isScrolling = false;
+            handleLeave();
+        });
+        
+        card.addEventListener('touchcancel', () => {
+            isScrolling = false;
+            handleLeave();
+        });
     });
 </script>
