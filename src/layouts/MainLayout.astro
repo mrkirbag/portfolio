@@ -1,22 +1,52 @@
 ---
 import BgFog from '@/components/BgFog.astro';
 import LanguageToggle from '@/components/LanguageToggle.astro';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const { 
+	title = "Fadi Kirbag | Full Stack Developer", 
+	description = "Portfolio profesional de Fadi Kirbag. Especialista en desarrollo web moderno, animaciones con GSAP y arquitectura con Astro." 
+} = Astro.props;
+
+const ogImage = "/assets/favicon.png"; 
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://fadikirbag.pages.dev');
 ---
 
 <html lang="es">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/png" href="/assets/favicon.png" />
-		<title>Fadi Kirbag</title>
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<BgFog />
-		<LanguageToggle />
-        <slot />
-	</body>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="generator" content={Astro.generator} />
+        <link rel="icon" type="image/png" href="/assets/favicon.png" />
+
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <link rel="canonical" href={canonicalURL} />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={Astro.url} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={new URL(ogImage, Astro.url)} />
+
+        <meta property="twitter:card" content="summary" />
+        <meta property="twitter:url" content={Astro.url} />
+        <meta property="twitter:title" content={title} />
+        <meta property="twitter:description" content={description} />
+        <meta property="twitter:image" content={new URL(ogImage, Astro.url)} />
+
+    </head>
+    <body>
+        <BgFog />
+        <LanguageToggle />
+        <main>
+            <slot />
+        </main>
+    </body>
 </html>
 
 <style is:global>
