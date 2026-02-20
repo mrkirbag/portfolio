@@ -51,12 +51,9 @@ const { id, title, description, image, technologies, github, link } = Astro.prop
         let startY = 0;
 
         const handleMove = (e: any) => {
-
             if (isScrolling) return;
 
             const rect = card.getBoundingClientRect();
-            
-            // Detectar coordenadas
             const isTouch = e.type.includes('touch');
             const clientX = isTouch ? e.touches[0].clientX : e.clientX;
             const clientY = isTouch ? e.touches[0].clientY : e.clientY;
@@ -69,7 +66,6 @@ const { id, title, description, image, technologies, github, link } = Astro.prop
 
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
-            
             const sensitivity = isTouch ? 40 : 20; 
             const rotateX = (y - centerY) / sensitivity;
             const rotateY = (centerX - x) / sensitivity;
@@ -108,7 +104,7 @@ const { id, title, description, image, technologies, github, link } = Astro.prop
 
             if (diffY > 30) {
                 isScrolling = true;
-                handleLeave(); 
+                handleLeave();
                 return;
             }
 
@@ -120,10 +116,12 @@ const { id, title, description, image, technologies, github, link } = Astro.prop
             isScrolling = false;
             handleLeave();
         });
-        
-        card.addEventListener('touchcancel', () => {
-            isScrolling = false;
-            handleLeave();
+
+        card.addEventListener('contextmenu', (e: Event) => {
+            const mouseEvent = e as MouseEvent;
+            if ((e as PointerEvent).pointerType === 'touch' || (e as any).pointerType === 'touch') {
+                e.preventDefault();
+            }
         });
     });
 </script>

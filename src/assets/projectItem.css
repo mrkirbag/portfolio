@@ -152,3 +152,10 @@ h3 {
         display: none;
     }
 }
+
+[data-project-card] {
+    user-select: none; 
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: none; 
+}
