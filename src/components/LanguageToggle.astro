@@ -1,0 +1,32 @@
+---
+import '@/assets/languageToggle.css';
+---
+
+<div class="language-switch">
+    <span class="lang-text es">ES</span>
+    <label class="toggle-container">
+        <input type="checkbox" id="lang-toggle" />
+        <div class="toggle-slider"></div>
+    </label>
+    <span class="lang-text en">EN</span>
+</div>
+
+<script>
+
+    const langToggle = document.getElementById('lang-toggle') as HTMLInputElement;
+    
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedLang = localStorage.getItem('pref-lang') || 'es';
+        if (langToggle) {
+            langToggle.checked = savedLang === 'en';
+        }
+    });
+
+    langToggle?.addEventListener('change', () => {
+        const newLang = langToggle.checked ? 'en' : 'es';
+        localStorage.setItem('pref-lang', newLang);
+        
+        window.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang: newLang } }));
+    });
+    
+</script>

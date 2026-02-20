@@ -1,0 +1,150 @@
+---
+import BgFog from '@/components/BgFog.astro';
+import LanguageToggle from '@/components/LanguageToggle.astro';
+---
+
+<html lang="es">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/png" href="/assets/favicon.png" />
+		<title>Fadi Kirbag</title>
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Astro</title>
+	</head>
+	<body>
+		<BgFog />
+		<LanguageToggle />
+        <slot />
+	</body>
+</html>
+
+<style is:global>
+
+	@font-face {
+		font-family: 'Roboto';
+		src: url('/fonts/Roboto-Regular.woff2') format('woff2');
+		font-weight: normal;
+		font-style: normal;
+		font-display: swap;
+	}
+
+	@font-face {
+		font-family: 'Futura';
+		src: url('/fonts/FuturaBT-ExtraBlackCondensed.woff2') format('woff2');
+		font-weight: 900;
+		font-style: normal;
+		font-display: swap;
+	}
+
+
+	:root {
+		/* --- Colores de Marca (Acentos) --- */
+		--accent-primary: #0F0529; 
+		--accent-secondary: #9485ED; /* Tono claro para tags */
+		--accent-glow: #1F0A52;
+
+		/* --- Tipografía (Colores y Tamaños) --- */
+		--text-main: #DADADA;
+
+		--font-titles: 'Futura', sans-serif;
+		--font-text: 'Roboto', sans-serif;
+
+		/* --- Efectos Glassmorphism (Neutro) --- */
+		--glass-bg: rgba(255, 255, 255, 0.01);
+		--glass-bg-hover: rgba(255, 255, 255, 0.03);
+		--glass-border: rgba(255, 255, 255, 0.1);
+		--glass-border-hover: rgba(255, 255, 255, 0.25);
+		
+		--glass-blur: blur(25px) saturate(150%);
+		--overlay-bg: rgba(0, 0, 0, 0.65);
+		--overlay-blur: blur(6px);
+
+		/* --- Layout & Spacing --- */
+		--container-width: 1100px;
+		--card-radius: 32px;
+		--btn-radius: 12px;
+	}
+
+
+	*, *::before, *::after {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
+
+	body {
+		overflow-x: hidden;
+		font-size: "Roboto", sans-serif;
+		color: var(--text-main);
+	}
+
+</style>
+
+<script>
+	import { gsap } from 'gsap';
+	import es from '../i18n/es.json';
+	import en from '../i18n/en.json';
+
+	type TranslationSchema = typeof es;
+	const languages: Record<string, TranslationSchema> = { es, en };
+
+	function updateTexts(lang: string): void {
+		const elements = document.querySelectorAll<HTMLElement>('[data-key]');
+		
+		if (elements.length === 0) return;
+
+		gsap.to(elements, {
+			opacity: 0,
+			y: -10,
+			duration: 0.3,
+			stagger: 0.05,
+			onComplete: () => {
+				elements.forEach(el => {
+					const key = el.getAttribute('data-key');
+					if (!key) return;
+
+					// Acceso seguro a las propiedades anidadas del JSON
+					const translation = key.split('.').reduce((obj: any, i: string) => obj?.[i], languages[lang]);
+					
+					if (translation && typeof translation === 'string') {
+						el.innerHTML = translation;
+					}
+				});
+
+
+				gsap.to(elements, {
+				opacity: 1,
+				y: 0,
+				duration: 0.3,
+				stagger: 0.05
+				});
+			}
+		});
+	}
+
+	// Escuchar el evento personalizado con tipado
+	window.addEventListener('languageChanged', ((event: CustomEvent) => {
+		updateTexts(event.detail.lang);
+	}) as EventListener);
+
+	// Verificar idioma al cargar la página
+	window.addEventListener('DOMContentLoaded', () => {
+		const savedLang = localStorage.getItem('pref-lang') || 'es';
+		
+		// Si el idioma guardado no es el por defecto (es), actualizamos
+		if (savedLang !== 'es' && languages[savedLang]) {
+		const elements = document.querySelectorAll<HTMLElement>('[data-key]');
+		elements.forEach(el => {
+			const key = el.getAttribute('data-key');
+			if (!key) return;
+			
+			const translation = key.split('.').reduce((obj: any, i: string) => obj?.[i], languages[savedLang]);
+			if (translation && typeof translation === 'string') {
+				el.innerHTML = translation;
+			}
+		});
+		}
+	});
+
+</script>

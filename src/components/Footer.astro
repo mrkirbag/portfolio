@@ -1,0 +1,50 @@
+---
+import '@/assets/footer.css';
+
+const currentYear = new Date().toLocaleDateString("es-VE", {
+    year: "numeric",
+    timeZone: "America/Caracas"
+});
+---
+
+<footer class="main-footer">
+    <div class="footer-divider"></div>
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-col">
+                <span class="footer-logo-text">FADI KIRBAG</span>
+                <p class="footer-description" data-key="footer.description">Desarrollador Full-Stack e Ingeniero en Informática.</p>
+            </div>
+
+            <div class="footer-col">
+                <span class="footer-label" data-key="footer.social">Redes Sociales</span>
+                <div class="footer-social-group">
+                    <a href="https://www.linkedin.com/in/fadikirbagdev/" target="_blank" aria-label="LinkedIn">
+                        <img src="/assets/linkedin.svg" alt="LinkedIn" />
+                    </a>
+                    <a href="https://github.com/mrkirbag" target="_blank" aria-label="GitHub">
+                        <img src="/assets/github.svg" alt="GitHub" />
+                    </a>
+                    <a href="https://www.instagram.com/fadikirbag_dev/" target="_blank" aria-label="Instagram">
+                        <img src="/assets/instagram.svg" alt="Instagram" />
+                    </a>
+                    <a href="https://wa.me/584247217176" target="_blank" aria-label="WhatsApp">
+                        <img src="/assets/whatsapp.svg" alt="WhatsApp" />
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <span class="footer-label" data-key="footer.status">Estado</span>
+                <div class="footer-status-indicator">
+                    <span class="pulse-dot"></span>
+                    <span class="footer-status-text" data-key="footer.available">Disponible ahora</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="footer-copy-text">© {currentYear} — <span data-key="footer.bottom">Hecho con Astro & Pasión</span></p>
+        </div>
+    </div>
+</footer>

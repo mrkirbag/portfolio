@@ -1,0 +1,101 @@
+.language-switch {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 9999;
+    background: var(--glass-bg);
+    padding: 8px 16px;
+    border-radius: 100px;
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: border-color 0.3s ease;
+}
+
+.language-switch:hover {
+    border-color: var(--glass-border-hover);
+}
+
+.lang-text {
+    font-family: var(--font-text);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-main);
+    opacity: 0.3;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    pointer-events: none;
+    text-transform: uppercase;
+}
+
+.language-switch:has(input:checked) .en { 
+    opacity: 1; 
+    color: var(--accent-secondary); 
+}
+
+.language-switch:has(input:not(:checked)) .es { 
+    opacity: 1; 
+    color: var(--text-main);
+}
+
+.toggle-container {
+    position: relative;
+    width: 42px; 
+    height: 22px;
+    cursor: pointer;
+}
+
+.toggle-container input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: 30px;
+    transition: 0.4s;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 4px;
+    bottom: 3px;
+    background-color: var(--text-main);
+    border-radius: 50%;
+    transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Estado Activo (EN) */
+input:checked + .toggle-slider {
+    background: rgba(148, 133, 237, 0.2);
+    border-color: var(--accent-secondary);
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(20px);
+    background-color: var(--accent-secondary);
+    box-shadow: 0 0 15px var(--accent-glow);
+}
+
+@media (max-width: 768px) {
+    .language-switch {
+        top: 20px;
+        right: 20px;
+        padding: 6px 12px;
+    }
+    
+    .lang-text {
+        font-size: 0.65rem;
+    }
+}

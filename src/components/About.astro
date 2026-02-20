@@ -1,0 +1,103 @@
+---
+import Skills from './Skills.astro';
+
+import '@/assets/about.css';
+---
+
+<section id="about-section"> 
+    <div class="profile-container" id="about-container"> 
+        <div class="glass-card">
+            <div class="content-grid">
+                
+                <div class="info-side">
+
+                    <span class="badge" data-key="about.badge">Desarrollador Full-Stack</span>
+
+                    <h1 data-key="about.name">FADI KIRBAG</h1>
+                    
+                    <h2 class="subtitle" data-key="about.subtitle">Ingeniero en Informática</h2>
+                    
+                    <p class="description" data-key="about.description">
+                        Especializado en crear experiencias digitales inmersivas donde el diseño técnico se encuentra con la interactividad. Transformo ideas complejas en interfaces y soluciones reales.
+                    </p>
+
+                    <div class="actions">
+                        <div class="social-icons">
+                            <a href="https://www.linkedin.com/in/fadikirbagdev/" target="_blank" aria-label="LinkedIn">
+                                <img src="/assets/linkedin.svg" alt="LinkedIn" />
+                            </a>
+                            <a href="https://github.com/mrkirbag" target="_blank" aria-label="GitHub">
+                                <img src="/assets/github.svg" alt="GitHub" />
+                            </a>
+                            <a href="https://www.instagram.com/fadikirbag_dev/" target="_blank" aria-label="Instagram">
+                                <img src="/assets/instagram.svg" alt="Instagram" />
+                            </a>
+                            <a href="https://wa.me/584247217176" target="_blank" aria-label="WhatsApp">
+                                <img src="/assets/whatsapp.svg" alt="WhatsApp" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <Skills />
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    import { gsap } from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initAboutSection() {
+        const aboutContainer = document.querySelector('#about-container');
+        const skillBars = document.querySelectorAll('.progress');
+
+        if (!aboutContainer) return;
+
+        gsap.fromTo(aboutContainer, 
+            { opacity: 0 },
+            {
+                opacity: 1,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#about-section",
+                    start: "top 80%", 
+                    end: "top 60%",   
+                    scrub: true,         
+                },
+                onStart: () => {
+
+                    // Animación de las barras 
+                    skillBars.forEach(bar => {
+                        const targetWidth = bar.getAttribute('data-width');
+                        if (targetWidth) {
+                            gsap.to(bar, {
+                                width: targetWidth,
+                                duration: 1.5,
+                                ease: "expo.out",
+                                onComplete: () => {
+                                    gsap.to(bar, {
+                                        boxShadow: "0 0 15px var(--accent-glow)",
+                                        duration: 2,
+                                        repeat: -1,
+                                        yoyo: true,
+                                        ease: "sine.inOut"
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        );
+
+    }
+
+    window.addEventListener('load', () => {
+        setTimeout(initAboutSection, 50);
+    });
+</script>

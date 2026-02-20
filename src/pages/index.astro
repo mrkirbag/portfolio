@@ -1,0 +1,86 @@
+---
+import Layout from '@/layouts/MainLayout.astro';
+import Hero from '@/components/Hero.astro';
+import About from '@/components/About.astro';
+import Projects from '@/components/Projects.astro';
+import Contact from '@/components/Contact.astro';
+import Footer from '@/components/Footer.astro';
+---
+
+<Layout>
+    <div class="section-wrapper"><Hero /></div>
+    <div class="section-wrapper"><About /></div>
+    <div class="section-wrapper"><Projects /></div>
+    <div class="section-wrapper"><Contact /></div>
+    <div class="section-wrapper"><Footer /></div>
+</Layout>
+
+<style>
+
+	.section-wrapper {
+		width: 100%;
+	}
+
+</style>
+
+<script>
+    import { gsap } from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+    import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+    const initScrollSnap = (): void => {
+        const wrappers = document.querySelectorAll<HTMLElement>('.section-wrapper');
+
+        wrappers.forEach((wrapper) => {
+
+            const isTall = wrapper.offsetHeight > window.innerHeight * 1.1;
+
+            ScrollTrigger.create({
+                trigger: wrapper,
+                start: isTall ? "top 80%" : "top 60%", 
+                end: "bottom 20%",
+                onEnter: () => handleSnap(wrapper),
+                onEnterBack: () => handleSnap(wrapper),
+            });
+        });
+
+        ScrollTrigger.refresh();
+    };
+
+    const handleSnap = (target: HTMLElement): void => {
+
+        const scrollDiff = Math.abs(window.scrollY - target.offsetTop);
+        
+        if (scrollDiff < 10) return;
+
+        scrollToSection(target);
+    };
+
+    const scrollToSection = (target: HTMLElement): void => {
+
+        gsap.killTweensOf(window);
+
+        gsap.to(window, {
+            scrollTo: { 
+                y: target, 
+                autoKill: false
+            },
+            duration: 1.2,
+            ease: "power4.out",
+            overwrite: "auto",
+            onStart: () => {
+                setTimeout(() => {
+                    ScrollTrigger.refresh();
+                }, 100);
+            }
+        });
+    };
+
+    window.addEventListener('load', () => {
+        initScrollSnap();
+        setTimeout(() => ScrollTrigger.refresh(), 500);
+    });
+	
+</script>

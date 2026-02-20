@@ -1,0 +1,79 @@
+---
+import Layout from '@/layouts/MainLayout.astro'; 
+import '@/assets/404.css';
+---
+
+<Layout>
+    <main id="error-section">
+        <div class="glow-orb"></div>
+        
+        <div id="error-container" data-tilt-error>
+        <div class="error-glass-content">
+            <span class="error-code">404</span>
+            <h1 class="error-title" data-key="404.title">PÁGINA NO ENCONTRADA</h1>
+            <p class="error-description" data-key="404.description">
+                El link que visitaste no existe.
+            </p>
+            
+            <div class="error-actions">
+            <a href="/" class="back-home-btn">
+                <span class="btn-text" data-key="404.btn">VOLVER AL INICIO</span>
+                <div class="btn-glow"></div>
+            </a>
+            </div>
+        </div>
+        
+        <div class="error-card-glow"></div>
+        </div>
+    </main>
+</Layout>
+
+<script>
+    import { gsap } from 'gsap';
+
+    // Animación de entrada
+    window.addEventListener('load', () => {
+        const tl = gsap.timeline();
+        
+        tl.fromTo("#error-container", 
+            { opacity: 0, scale: 0.9, y: 20 },
+            { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "power3.out" }
+        )
+        .from(".error-code", { opacity: 0, y: -20, duration: 0.5 }, "-=0.3")
+        .from(".error-divider", { width: 0, duration: 0.7, ease: "power2.inOut" })
+        .from(".error-title, .error-description, .error-actions", { 
+            opacity: 0, 
+            y: 10, 
+            stagger: 0.1 
+        });
+    });
+
+    // Efecto Tilt (Inclinación) similar a tus otras cards
+    const card = document.querySelector('[data-tilt-error]') as HTMLElement;
+    if (card) {
+        window.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            card.style.setProperty('--x', `${x}px`);
+            card.style.setProperty('--y', `${y}px`);
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = (y - centerY) / 30;
+            const rotateY = (centerX - x) / 30;
+
+            gsap.to(card, {
+                rotateX: rotateX,
+                rotateY: rotateY,
+                transformPerspective: 1000,
+                duration: 0.5
+            });
+        });
+
+        card.addEventListener('mouseleave', () => {
+            gsap.to(card, { rotateX: 0, rotateY: 0, duration: 1 });
+        });
+    }
+</script>

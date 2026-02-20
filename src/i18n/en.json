@@ -1,0 +1,61 @@
+{
+    "about": {
+        "badge": "Full-Stack Developer",
+        "name": "FADI KIRBAG",
+        "subtitle": "Computer Engineer",
+        "description": "Specialized in creating immersive digital experiences where technical design meets interactivity. I transform complex ideas into real interfaces and solutions.",
+        "expertise": "Expertise"
+    },
+
+    "projects": {
+        "title": "PROJECTS",
+        "view_code": "Code",
+        "view_live": "Demo",
+        "items": {
+            "sistema-ventas": {
+                "title": "Sales & Administration System",
+                "description": "Multi-user and multi-currency management system for customers, inventory, and sales with authentication and database. Graphic and logical reporting."
+            },
+            "sistema-medico": {
+                "title": "Medical System for Dr. Valentina Benavides",
+                "description": "Multi-site and multi-user management system for patients, procedures, and appointments, featuring photographic control stored in R2, authentication, and SQLite database."
+            },
+            "landing-savi": {
+                "title": "Administrative & Sales System Landing Page",
+                "description": "Modern and engaging landing page for the sales and administrative system, featuring advanced animations, responsive design, and SEO optimization."
+            },
+            "rincon-postres": {
+                "title": "Rincón de los Postres - Online Store",
+                "description": "Online store for a local bakery, featuring a product catalog, shopping cart, and sales system through WhatsApp."
+            }
+        }
+    },
+
+    "contact": {
+        "badge": "Contact",
+        "title": "LET'S WORK TOGETHER",
+        "description": "Have a project in mind or just want to say hi? My inbox is always open.",
+        "email": "Email",
+        "location": "Location",
+        "form": {
+            "name": "Name",
+            "email": "Email Address",
+            "message": "Message",
+            "send": "Send Message"
+        }
+    },
+
+    "footer": {
+        "description": "Full-Stack Developer & Computer Engineer.",
+        "social": "Social",
+        "status": "Status",
+        "available": "Available now",
+        "bottom": "Made with Astro & Passion"
+    },
+
+    "404": {
+        "title": "PAGE NOT FOUND",
+        "description": "The link you visited does not exist.",
+        "btn": "BACK TO HOME"
+    }
+}

@@ -1,0 +1,53 @@
+---
+import ScrollIndicator from "./ScrollIndicator.astro"
+
+import "@/assets/hero.css";
+---
+
+<div class="main-hero">
+    <div class="fixed-wrapper" id="hero-fixed-content">
+        <div class="logo-center">
+            <img src="/assets/logo.svg" alt="Logo" width="300" height="128" id="mainhero-logo" />
+        </div>
+        
+        <div class="scroll-container" id="scroll-indicators">
+            <ScrollIndicator />
+            <ScrollIndicator />
+            <ScrollIndicator />
+        </div>
+    </div>
+</div>
+
+<script>
+
+    import { gsap } from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    window.addEventListener('DOMContentLoaded', () => {
+
+        const fixedContent = document.getElementById('hero-fixed-content') as HTMLElement;
+        const logo = document.getElementById('mainhero-logo') as HTMLElement;
+        const indicators = document.getElementById('scroll-indicators') as HTMLElement;
+
+        ScrollTrigger.create({
+            trigger: ".main-hero",
+            start: "top top",
+            end: "bottom top",
+            pin: fixedContent, 
+            pinSpacing: false,
+        });
+
+        gsap.to([logo, indicators], {
+            opacity: 0,
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".main-hero",
+                start: "top top",      
+                end: "bottom 40%",    
+                scrub: true,          
+            }
+        });
+    });
+</script>

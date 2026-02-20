@@ -1,0 +1,106 @@
+---
+import "@/assets/projectItem.css"
+
+interface Props {
+    id: string;
+    title: string;
+    description: string;
+    image: string;
+    technologies: string[];
+    github: string;
+    link: string;
+}
+
+const { id, title, description, image, technologies, github, link } = Astro.props;
+---
+
+<div class="project-card glass-card-project" data-project-card>
+    <div class="project-image">
+        <img src={image} alt={title} loading="lazy" />
+        
+        <div class="project-overlay">
+            <div class="project-links">
+                <a href={github} target="_blank" class="project-btn">
+                    <span data-key="projects.view_code">Código</span>
+                </a>
+                <a href={link} target="_blank" class="project-btn">
+                    <span data-key="projects.view_live">Demo</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="project-info">
+        <div class="tech-tags">
+            {technologies.map(tech => <span>{tech}</span>)}
+        </div>
+        <h3 data-key={`projects.items.${id}.title`}>{title}</h3>
+        <p class="project-description" data-key={`projects.items.${id}.description`}>{description}</p>
+    </div>
+    
+    <div class="card-glow"></div>
+</div>
+
+<script>
+    import { gsap } from 'gsap';
+
+    const cards = document.querySelectorAll('[data-project-card]');
+
+    cards.forEach(card => {
+        const handleMove = (e: any) => {
+            const rect = card.getBoundingClientRect();
+            
+            // Detectar si es touch o mouse para obtener las coordenadas
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+            const x = clientX - rect.left;
+            const y = clientY - rect.top;
+
+            // Actualizar variables CSS para el brillo (spotlight)
+            (card as HTMLElement).style.setProperty('--x', `${x}px`);
+            (card as HTMLElement).style.setProperty('--y', `${y}px`);
+
+            // Cálculo de rotación
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = (y - centerY) / 20; // Un poco más sensible para móvil
+            const rotateY = (centerX - x) / 20;
+
+            gsap.to(card, {
+                rotateX: rotateX,
+                rotateY: rotateY,
+                transformPerspective: 1000,
+                duration: 0.4,
+                ease: "power2.out"
+            });
+        };
+
+        const handleLeave = () => {
+            gsap.to(card, {
+                rotateX: 0,
+                rotateY: 0,
+                duration: 0.7,
+                ease: "power2.out"
+            });
+        };
+
+        // Eventos de Mouse
+        card.addEventListener('mousemove', handleMove);
+        card.addEventListener('mouseleave', handleLeave);
+
+        // Eventos de Touch (Móvil)
+        card.addEventListener('touchstart', (e) => {
+            // Opcional: podrías no prevenir el default aquí si quieres permitir scroll
+            handleMove(e);
+        }, { passive: true });
+
+        card.addEventListener('touchmove', (e) => {
+            // Evita que la página haga scroll mientras mueves la card
+            if (e.cancelable) e.preventDefault(); 
+            handleMove(e);
+        }, { passive: false });
+
+        card.addEventListener('touchend', handleLeave);
+    });
+</script>

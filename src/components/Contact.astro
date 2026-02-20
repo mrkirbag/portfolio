@@ -1,0 +1,127 @@
+---
+import '@/assets/contact.css';
+---
+
+<section id="contact-section">
+    <div id="contact-container">
+        <div class="contact-grid">
+            <div class="contact-info">
+                <span class="contact-badge" data-key="contact.badge">Contacto</span>
+                <h2 data-key="contact.title">TRABAJEMOS JUNTOS</h2>
+                <p class="contact-description" data-key="contact.description">
+                    ¿Tienes un proyecto en mente o simplemente quieres saludar? Mi buzón siempre está abierto.
+                </p>
+                <div class="contact-details">
+                    <div class="detail-item">
+                        <span class="contact-label" data-key="contact.email">Correo Electrónico</span>
+                        <a href="mailto:fadikirbag5@gmail.com" class="value">fadikirbag5@gmail.com</a>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label" data-key="contact.location">Ubicación</span>
+                        <span class="value">San Cristóbal, Venezuela</span>
+                    </div>
+                </div>
+            </div>
+
+            <form 
+                class="contact-form" 
+                id="contact-form" 
+                action="https://formspree.io/f/mojnlywv" 
+                method="POST"
+            >
+                <div class="input-group">
+                    <label for="name" data-key="contact.form.name">Nombre</label>
+                    <input type="text" id="name" name="name" required />
+                </div>
+                <div class="input-group">
+                    <label for="email" data-key="contact.form.email">Email</label>
+                    <input type="email" id="email" name="_replyto" required />
+                </div>
+                <div class="input-group">
+                    <label for="message" data-key="contact.form.message">Mensaje</label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submit-btn">
+                    <span class="btn-text" data-key="contact.form.send">Enviar Mensaje</span>
+                    <div class="btn-glow"></div>
+                </button>
+                <div id="form-status" class="form-status" style="display: none;"></div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script>
+    import { gsap } from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initContact() {
+        const container = document.querySelector('#contact-container') as HTMLElement;
+        const form = document.getElementById('contact-form') as HTMLFormElement;
+        const btn = document.getElementById('submit-btn') as HTMLButtonElement;
+        const btnText = btn?.querySelector('.btn-text') as HTMLElement;
+        const status = document.getElementById('form-status') as HTMLElement;
+
+        if (!container || !form) return;
+
+        gsap.fromTo(container, { opacity: 0 }, {
+            opacity: 1,
+            scrollTrigger: { 
+                trigger: "#contact-section", 
+                start: "top 80%", 
+                end: "top 60%", 
+                scrub: true 
+            }
+        });
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            btn.disabled = true;
+            btnText.innerText = "...";
+            
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    status.style.display = 'block';
+                    status.innerText = "¡Enviado con éxito!";
+                    status.className = "form-status success";
+                    form.reset();
+                    gsap.fromTo(status, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4 });
+                } else {
+                    throw new Error();
+                }
+            } catch {
+                status.innerText = "Error al enviar";
+                status.className = "form-status error"; 
+                gsap.to(btn, { x: 5, repeat: 3, yoyo: true, duration: 0.1 });
+            } finally {
+                btn.disabled = false;
+                btnText.innerText = "Enviar Mensaje";
+                
+                // Limpieza suave
+                setTimeout(() => {
+                        gsap.to(status, { 
+                            opacity: 0, 
+                            y: -10, 
+                            duration: 0.8,
+                            onComplete: () => {
+                                status.style.display = 'none'; 
+                            }
+                        });
+                }, 2000);
+            }
+        });
+    }
+
+    window.addEventListener('load', initContact);
+</script>

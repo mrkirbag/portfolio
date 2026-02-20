@@ -1,0 +1,61 @@
+{
+    "about": {
+        "badge": "Desarrollador Full-Stack",
+        "name": "FADI KIRBAG",
+        "subtitle": "Ingeniero en Informática",
+        "description": "Especializado en crear experiencias digitales inmersivas donde el diseño técnico se encuentra con la interactividad. Transformo ideas complejas en interfaces y soluciones reales.",
+        "expertise": "Habilidades"
+    },
+
+    "projects": {
+        "title": "PROYECTOS",
+        "view_code": "Código",
+        "view_live": "Demo",
+        "items": {
+            "sistema-ventas": {
+                "title": "Sistema de Administración y Ventas",
+                "description": "Sistema de gestión multiusuario y multimoneda de clientes, inventario y ventas con autenticación y base de datos. Reportes gráficos y lógicos."
+            },
+            "sistema-medico": {
+                "title": "Sistema Médico para la Dra. Valentina Benavides",
+                "description": "Sistema de gestión multisede y multiusuario para pacientes, procedimientos y citas, con control fotográfico almacenado en R2, autenticación y base de datos SQLite."
+            },
+            "landing-savi": {
+                "title": "Landing Page del Sistema Administrativo y de Ventas",
+                "description": "Página de aterrizaje moderna y atractiva para el sistema administrativo y de ventas, con animaciones, diseño responsivo y optimización SEO."
+            },
+            "rincon-postres": {
+                "title": "Rincón de los Postres - Tienda Online",
+                "description": "Tienda online para una pastelería local, con catálogo de productos, carrito de compras y sistema de ventas a través de WhatsApp."
+            }
+        }
+    },
+
+    "contact": {
+        "badge": "Contacto",
+        "title": "TRABAJEMOS JUNTOS",
+        "description": "¿Tienes un proyecto en mente o simplemente quieres saludar? Mi buzón siempre está abierto.",
+        "email": "Correo Electrónico",
+        "location": "Ubicación",
+        "form": {
+            "name": "Nombre",
+            "email": "Correo Electrónico",
+            "message": "Mensaje",
+            "send": "Enviar Mensaje"
+        }
+    },
+
+    "footer": {
+        "description": "Desarrollador Full-Stack e Ingeniero en Informática.",
+        "social": "Redes Sociales",
+        "status": "Estado",
+        "available": "Disponible ahora",
+        "bottom": "Hecho con Astro & Pasión"
+    },
+
+    "404": {
+        "title": "PÁGINA NO ENCONTRADA",
+        "description": "El link que visitaste no existe.",
+        "btn": "VOLVER AL INICIO"
+    }
+}
