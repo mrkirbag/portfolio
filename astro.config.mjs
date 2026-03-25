@@ -3,7 +3,7 @@ import path from 'path';
 
 export default defineConfig({
 
-    site: 'https://fadikirbag.pages.dev',
+    site: 'https://fadikirbag.dev',
     
     output: 'static',
 
