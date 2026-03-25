@@ -29,10 +29,10 @@ export const projectsData: Project[] = [
         link: "https://fadikirbag-savi.netlify.app/"
     },
     {
-        id: "rincon-postres",
-        image: "/assets/projects/rincon-postres.png",
-        technologies: ["Astro", "CSS", "Shopping Cart", "WhatsApp Sales"],
-        github: "https://github.com/mrkirbag/rincondelospostres",
-        link: "https://rincondelospostres.netlify.app/"
+        id: "sneak-shoes",
+        image: "/assets/projects/sneak-shoes.png",
+        technologies: ["Astro", "Shopping Cart", "React", "Tailwind", "WhatsApp Sales"],
+        github: "https://github.com/mrkirbag/sneak-shoes-ecommerce",
+        link: "https://sneakshoes-venezuela.netlify.app/"
     }
 ];
