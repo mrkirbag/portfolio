@@ -13,7 +13,7 @@ const {
 } = Astro.props;
 
 const ogImage = "/assets/favicon.png"; 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://fadikirbag.pages.dev');
+const canonicalURL = new URL(Astro.url.pathname, 'https://fadikirbag.dev');
 ---
 
 <html lang="es">
@@ -28,16 +28,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://fadikirb
         <link rel="canonical" href={canonicalURL} />
 
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={Astro.url} />
+        <meta property="og:url" content={canonicalURL} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
-        <meta property="og:image" content={new URL(ogImage, Astro.url)} />
+        <meta property="og:image" content={new URL(ogImage, canonicalURL)} />
 
         <meta property="twitter:card" content="summary" />
-        <meta property="twitter:url" content={Astro.url} />
+        <meta property="twitter:url" content={canonicalURL} />
         <meta property="twitter:title" content={title} />
         <meta property="twitter:description" content={description} />
-        <meta property="twitter:image" content={new URL(ogImage, Astro.url)} />
+        <meta property="twitter:image" content={new URL(ogImage, canonicalURL)} />
 
     </head>
     <body>
@@ -105,7 +105,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://fadikirb
 
 	body {
 		overflow-x: hidden;
-		font-size: "Roboto", sans-serif;
+		font-family: "Roboto", sans-serif;
 		color: var(--text-main);
 	}
 
@@ -114,7 +114,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://fadikirb
 <script>
 	import { gsap } from 'gsap';
 	import es from '../i18n/es.json';
-	import en from '../i18n/en.json';
+	import en from '../i18n/en.json'; 
 
 	type TranslationSchema = typeof es;
 	const languages: Record<string, TranslationSchema> = { es, en };
