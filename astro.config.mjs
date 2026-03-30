@@ -1,10 +1,10 @@
 import { defineConfig } from 'astro/config';
 import path from 'path';
 
-export default defineConfig({
+import sitemap from '@astrojs/sitemap';
 
+export default defineConfig({
     site: 'https://fadikirbag.dev',
-    
     output: 'static',
 
     vite: {
@@ -14,7 +14,10 @@ export default defineConfig({
             },
         },
     },
+
     devToolbar: {
         enabled: false,
     },
+
+    integrations: [sitemap()],
 });
