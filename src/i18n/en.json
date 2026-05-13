@@ -7,11 +7,39 @@
         "expertise": "Expertise"
     },
 
+    "services": {
+        "badge": "Services",
+        "title": "Services for your business",
+        "description": "Real solutions to complex ideas",
+        "items": [
+            {
+                "title": "Web Development",
+                "desc": "Creation of modern, responsive, SEO-optimized websites using technologies such as React and Astro."
+            },
+            {
+                "title": "UI/UX Design",
+                "desc": "Design of attractive interfaces and intuitive user experiences."
+            },
+            {
+                "title": "Content Management Systems",
+                "desc": "Implementation of custom panels to facilitate content management and improve scalability."
+            }
+        ]
+    },
+
     "projects": {
         "title": "PROJECTS",
         "view_code": "Code",
         "view_live": "Demo",
         "items": {
+            "cinemagamer": {
+                "title": "Cinema Gamer",
+                "description": "E-commerce for video games with a modern and immersive visual experience, featuring a responsive interface and clear product presentation."
+            },
+            "landing-spabella": {
+                "title": "Spabella",
+                "description": "Conversion-focused landing page with clear structure, polished visuals, and a strong emphasis on professional brand presentation."
+            },
             "sistema-ventas": {
                 "title": "Sales & Administration System",
                 "description": "Multi-user and multi-currency management system for customers, inventory, and sales with authentication and database. Graphic and logical reporting."

@@ -1,0 +1,216 @@
+#services-section {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+#services-container {
+  position: relative;
+  width: 100%;
+  max-width: var(--container-width);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--card-radius);
+  padding: 4rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  opacity: 1;
+  will-change: transform, opacity;
+  transition: border-color 0.4s ease, background 0.4s ease;
+  box-sizing: border-box;
+}
+
+#services-container:hover {
+  border-color: var(--glass-border-hover);
+  background: var(--glass-bg-hover);
+}
+
+#services-container .content-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: start;
+  width: 100%;
+}
+
+#services-container .info-side {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.services-info-centered {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.services-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: fit-content;
+  padding: 8px 16px;
+  background: var(--glass-bg);
+  color: var(--accent-secondary);
+  border-radius: 100px;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid rgba(148, 133, 237, 0.2);
+  font-family: var(--font-text);
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
+
+.services-title {
+  font-family: var(--font-titles);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  color: var(--text-main);
+  margin: 0;
+  letter-spacing: -2px;
+  line-height: 1;
+  opacity: 0.97;
+  text-align: center;
+}
+
+.services-description {
+  color: var(--text-main);
+  font-size: 1.1rem;
+  opacity: 0.8;
+  text-align: center;
+  font-family: var(--font-text);
+}
+
+.services-list,
+.services-list-enhanced {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.2rem;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+}
+
+.service-card-glass,
+.service-card-enhanced {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 60%, var(--accent-glow) 100%);
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.18), 0 0 0 2px var(--accent-glow);
+  padding: 2.5rem 2rem 2.2rem;
+  min-width: 0;
+  max-width: none;
+  width: 100%;
+  color: var(--text-main);
+  border: none;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
+  z-index: 1;
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 1024px) {
+  .services-list,
+  .services-list-enhanced {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .services-list,
+  .services-list-enhanced {
+    grid-template-columns: 1fr;
+  }
+}
+
+.service-card-glass:hover,
+.service-card-enhanced:hover {
+  transform: translateY(-10px) scale(1.04) rotate(-1deg);
+  box-shadow: 0 16px 48px 0 var(--accent-glow), 0 0 0 2px var(--accent-secondary);
+}
+
+.service-card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.1rem;
+}
+
+.service-card-title {
+  font-family: var(--font-titles);
+  font-size: 1.35rem;
+  margin-bottom: 0.3rem;
+  color: var(--accent-secondary);
+  text-align: center;
+  letter-spacing: -1px;
+  font-weight: 700;
+}
+
+.service-card-desc {
+  font-size: 1.05rem;
+  color: #e0e0e0;
+  text-align: center;
+  font-family: var(--font-text);
+  margin-bottom: 0.2rem;
+}
+
+.card-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 60% 40%, var(--accent-glow) 0%, transparent 70%);
+  opacity: 0.09;
+  z-index: 0;
+}
+
+@media (max-width: 450px) {
+  #services-section {
+    padding: 3rem 0;
+    min-height: auto;
+  }
+
+  #services-container {
+    width: 100%;
+    max-width: 100%;
+    padding: 2.5rem 4rem;
+  }
+
+  #services-container .content-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  #services-container .info-side {
+    align-items: center;
+    text-align: center;
+  }
+
+  .services-title,
+  .services-description,
+  .service-card-title,
+  .service-card-desc {
+    text-align: center;
+  }
+
+  .services-badge {
+    font-size: 0.65rem;
+  }
+
+  .service-card-glass,
+  .service-card-enhanced {
+    min-width: 0;
+    max-width: 100%;
+  }
+}

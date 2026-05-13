@@ -1,0 +1,111 @@
+---
+import '@/assets/services.css';
+
+const services = [
+  {
+    title: 'Desarrollo Web',
+    desc: 'Creación de sitios web modernos, responsivos y optimizados para SEO, utilizando tecnologías como React y Astro.',
+  },
+  {
+    title: 'Diseño UI/UX',
+    desc: 'Diseño de interfaces atractivas y experiencias de usuario intuitivas.',
+  },
+  {
+    title: 'Sistemas de Gestión de Contenidos',
+    desc: 'Implementación de paneles personalizado para facilitar la gestión de contenido y mejorar la escalabilidad.',
+  }
+];
+---
+
+
+<section id="services-section">
+  <div class="profile-container" id="services-container">
+    <div class="content-grid">
+      <div class="info-side services-info-centered">
+        <span class="services-badge" data-key="services.badge">Servicios</span>
+        <h2 class="services-title" data-key="services.title">Servicios para tu negocio</h2>
+        <p class="services-description" data-key="services.description">Soluciones reales a ideas complejas</p>
+      </div>
+      <div class="services-list services-list-enhanced">
+        {services.map((item, idx) => (
+          <div class="service-card-glass service-card-enhanced" data-service-card>
+            <div class="service-card-header">
+              <h3 class="service-card-title" data-key={`services.items.${idx}.title`}>
+                {item.title}
+              </h3>
+            </div>
+            <p class="service-card-desc" data-key={`services.items.${idx}.desc`}>
+              {item.desc}
+            </p>
+            <div class="card-glow"></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function initServices() {
+    const section = document.querySelector('#services-section');
+    const badge = document.querySelector('.services-badge');
+    const title = document.querySelector('.services-title');
+    const description = document.querySelector('.services-description');
+    const cards = document.querySelectorAll('[data-service-card]');
+
+    if (!section || !badge || !title || !description || cards.length === 0) return;
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: 'top 80%',
+        end: 'bottom 30%',
+        toggleActions: 'play none none reverse',
+      },
+    });
+
+    tl.from([badge, title, description], {
+      opacity: 0,
+      y: 28,
+      duration: 0.75,
+      stagger: 0.12,
+      ease: 'power2.out',
+    }).from(
+      cards,
+      {
+        opacity: 0,
+        y: 55,
+        scale: 0.95,
+        filter: 'blur(6px)',
+        duration: 0.85,
+        stagger: 0.14,
+        ease: 'power2.out',
+      },
+      '-=0.25'
+    );
+
+    cards.forEach((card, index) => {
+      gsap.to(card, {
+        y: -12,
+        duration: 2.2,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+        delay: index * 0.2,
+      });
+    });
+  }
+
+  window.addEventListener('load', () => {
+    setTimeout(initServices, 50);
+  });
+  
+</script>
+

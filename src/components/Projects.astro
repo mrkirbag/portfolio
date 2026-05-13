@@ -6,6 +6,12 @@ import es from '@/i18n/es.json';
 import '@/assets/projects.css';
 
 const t = es.projects;
+const items = t.items;
+const localizedProjects = projectsData.map((project) => ({
+    ...project,
+    title: items[project.id as keyof typeof items].title,
+    description: items[project.id as keyof typeof items].description,
+}));
 ---
 
 <section id="projects-section">
@@ -13,15 +19,15 @@ const t = es.projects;
         <h2 class="section-title" data-key="projects.title">{t.title}</h2>
         
         <div class="projects-grid">
-            {projectsData.map(project => (
+            {localizedProjects.map((project) => (
                 <ProjectItem 
                     id={project.id}
                     image={project.image}
                     technologies={project.technologies}
                     github={project.github}
                     link={project.link}
-                    title={t.items[project.id as keyof typeof t.items].title}
-                    description={t.items[project.id as keyof typeof t.items].description}
+                    title={project.title}
+                    description={project.description}
                 />
             ))}
         </div>

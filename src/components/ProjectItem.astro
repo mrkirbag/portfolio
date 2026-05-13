@@ -18,16 +18,22 @@ const { id, title, description, image, technologies, github, link } = Astro.prop
     <div class="project-image">
         <img src={image} alt={title} loading="lazy" />
         
-        <div class="project-overlay">
-            <div class="project-links">
-                <a href={github} target="_blank" class="project-btn">
-                    <span data-key="projects.view_code">Código</span>
-                </a>
-                <a href={link} target="_blank" class="project-btn">
-                    <span data-key="projects.view_live">Demo</span>
-                </a>
+        {(github || link) && (
+            <div class="project-overlay">
+                <div class="project-links">
+                    {github && (
+                        <a href={github} target="_blank" class="project-btn">
+                            <span data-key="projects.view_code">Código</span>
+                        </a>
+                    )}
+                    {link && (
+                        <a href={link} target="_blank" class="project-btn">
+                            <span data-key="projects.view_live">Demo</span>
+                        </a>
+                    )}
+                </div>
             </div>
-        </div>
+        )}
     </div>
     
     <div class="project-info">

@@ -12,6 +12,14 @@
         "view_code": "Código",
         "view_live": "Demo",
         "items": {
+            "cinemagamer": {
+                "title": "Cinema Gamer",
+                "description": "E-commerce de videojuegos con experiencia visual moderna e inmersiva, con interfaz responsiva y presentación clara del producto."
+            },
+            "landing-spabella": {
+                "title": "Spabella",
+                "description": "Landing page orientada a conversión, con estructura clara, diseño atractivo y foco en presentar la marca de forma profesional."
+            },
             "sistema-ventas": {
                 "title": "Sistema de Administración y Ventas",
                 "description": "Sistema de gestión multiusuario y multimoneda de clientes, inventario y ventas con autenticación y base de datos. Reportes gráficos y lógicos."
@@ -57,5 +65,25 @@
         "title": "PÁGINA NO ENCONTRADA",
         "description": "El link que visitaste no existe.",
         "btn": "VOLVER AL INICIO"
-    }
+    },
+    
+    "services": {
+            "badge": "Servicios",
+            "title": "Servicios para tu negocio",
+            "description": "Soluciones reales a ideas complejas",
+            "items": [
+                {
+                    "title": "Desarrollo Web",
+                    "desc": "Creación de sitios web modernos, responsivos y optimizados para SEO, utilizando tecnologías como React y Astro."
+                },
+                {
+                    "title": "Diseño UI/UX",
+                    "desc": "Diseño de interfaces atractivas y experiencias de usuario intuitivas."
+                },
+                {
+                    "title": "Sistemas de Gestión de Contenidos",
+                    "desc": "Implementación de paneles personalizado para facilitar la gestión de contenido y mejorar la escalabilidad."
+                }
+            ]
+        }
 }

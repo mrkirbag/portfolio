@@ -8,6 +8,20 @@ export interface Project {
 
 export const projectsData: Project[] = [
     {
+        id: "cinemagamer",
+        image: "/assets/projects/cinemagamer.png",
+        technologies: ["CMS", "Node.js", "UI/UX", "React"],
+        github: "https://github.com/mrkirbag/cinema-gamer",
+        link: "https://cinemagamer.com"
+    },
+    {
+        id: "landing-spabella",
+        image: "/assets/projects/landing-spabella.png",
+        technologies: ["Astro", "Landing Page", "SEO"],
+        github: "https://github.com/mrkirbag/spabella-spa",
+        link: "https://spabellastetic.com"
+    },
+    {
         id: "sistema-ventas",
         image: "/assets/projects/sistema-ventas.png",
         technologies: ["Astro", "Node.js", "Auth", "SQLite", "Chart.js"],
